@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panggih Wibowo — Marketing Specialist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --card: #1c1c1c;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --text: #f0ece4;
+      --muted: #888;
+      --border: #2a2a2a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── TECH GRID CANVAS ── */
+    #tech-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* gradient overlay so text stays readable */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(13,13,13,0.2) 0%, rgba(13,13,13,0.82) 55%, rgba(13,13,13,0.97) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    nav, .hero, section, #exp-section, #experience, footer {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 10%; bottom: 10%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #2dd4bf;
+      border: 1px solid #2dd4bf;
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 32px;
+      width: fit-content;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(54px, 7vw, 96px);
+      font-weight: 400;
+      line-height: 1.0;
+      color: #ffffff;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    .hero-name span {
+      color: #ffffff;
+    }
+
+    .hero-degree {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-tagline {
+      font-size: 16px;
+      color: #bbb;
+      line-height: 1.7;
+      max-width: 400px;
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #000;
+      transform: translateY(-2px);
+    }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 60px;
+      position: relative;
+    }
+
+    .hero-visual {
+      position: relative;
+      width: 320px;
+      height: 380px;
+      animation: fadeUp 1s 0.5s ease both;
+    }
+
+    .hero-visual-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--card) 0%, #232323 100%);
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .hero-visual-accent {
+      position: absolute;
+      top: -12px; right: -12px;
+      width: 100%; height: 100%;
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      opacity: 0.4;
+    }
+
+    .hero-initials {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 96px;
+      font-weight: 400;
+      color: var(--gold);
+      opacity: 0.15;
+      letter-spacing: -4px;
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      right: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stat {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── FLOATING DOTS ── */
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.12;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 60px; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 400;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      margin-bottom: 60px;
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-inner { max-width: 1100px; margin: 0 auto; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .skill-card:hover::before { opacity: 1; }
+
+    .skill-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .skill-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .skill-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { max-width: 1100px; margin: 0 auto; padding: 100px 60px; }
+
+    .exp-grid {
+      display: grid;
+      gap: 2px;
+    }
+
+    .exp-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 40px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 40px;
+      transition: border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exp-item:hover { border-color: var(--gold); }
+
+    .exp-item::after {
+      content: attr(data-index);
+      position: absolute;
+      right: 40px; top: 36px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      font-weight: 400;
+      color: var(--gold);
+      opacity: 0.04;
+      line-height: 1;
+    }
+
+    .exp-meta { padding-top: 4px; }
+
+    .exp-period {
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .exp-duration {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .exp-company {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
+    }
+
+    .exp-role {
+      font-size: 14px;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .exp-bullets li {
+      font-size: 14px;
+      color: #aaa;
+      line-height: 1.6;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 16px;
+    }
+
+    /* ── EDUCATION ── */
+    #education {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .edu-inner { max-width: 1100px; margin: 0 auto; }
+
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 40px;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      max-width: 600px;
+      transition: border-color 0.3s;
+    }
+
+    .edu-card:hover { border-color: var(--gold); }
+
+    .edu-icon {
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+
+    .edu-school {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .edu-degree {
+      font-size: 14px;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .edu-period {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 60px;
+      text-align: center;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .contact-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 32px 24px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.3s, transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contact-item:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    .contact-item-icon { font-size: 28px; }
+
+    .contact-item-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-item-value {
+      font-size: 14px;
+      color: var(--gold);
+      word-break: break-all;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 60px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    footer span { color: var(--gold); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
+      .hero-left { padding: 60px 24px 40px; }
+      .hero-left::after { display: none; }
+      .hero-right { display: none; }
+      section { padding: 60px 24px; }
+      #experience { padding: 60px 24px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 16px; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TECH GRID CANVAS -->
+<canvas id="tech-grid"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">PW</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Keahlian</a></li>
+    <li><a href="#exp-section">Pengalaman</a></li>
+    <li><a href="#education">Pendidikan</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- floating dots -->
+  <div class="dot" style="width:180px;height:180px;top:10%;right:8%;animation-delay:0s;"></div>
+  <div class="dot" style="width:80px;height:80px;bottom:20%;left:5%;animation-delay:2s;"></div>
+  <div class="dot" style="width:40px;height:40px;top:60%;right:30%;animation-delay:4s;"></div>
+
+  <div class="hero-left">
+    <div class="badge">Marketing Specialist</div>
+    <h1 class="hero-name">Panggih<br><span>Wibowo,</span><br>S.E.</h1>
+    <p class="hero-degree">CILACAP, JAWA TENGAH · INDONESIA</p>
+    <p class="hero-tagline">
+      Spesialis Google Ads & Digital Marketing dengan pengalaman hampir 5 tahun memimpin tim, mengoptimalkan iklan, dan membangun strategi pemasaran digital yang terukur.
+    </p>
+    <div class="hero-cta">
+      <a href="#exp-section" class="btn btn-primary">Lihat Pengalaman</a>
+      <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hero-visual-bg"></div>
+      <div class="hero-visual-accent"></div>
+      <div class="hero-initials">PW</div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Tahun Pengalaman</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Platform Dikuasai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-inner">
+    <p class="section-label">Core Competencies</p>
+    <h2 class="section-title">Keahlian Utama</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Google Ads & SEM</div>
+        <div class="skill-desc">Mengelola kampanye GSN, GDN, Discovery, dan Performance Max untuk menghasilkan leads berkualitas tinggi.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔍</div>
+        <div class="skill-name">Search Engine Optimization</div>
+        <div class="skill-desc">Optimasi konten dan struktur website untuk meningkatkan visibilitas organik di mesin pencari.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">✍️</div>
+        <div class="skill-name">Copywriting</div>
+        <div class="skill-desc">Menulis konten iklan dan marketing yang persuasif dan berorientasi pada konversi.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📈</div>
+        <div class="skill-name">Web Analytics</div>
+        <div class="skill-desc">Menganalisis data performa kampanye untuk pengambilan keputusan berbasis data.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📱</div>
+        <div class="skill-name">Social Media Marketing</div>
+        <div class="skill-desc">Strategi konten dan iklan di Facebook, Instagram, dan YouTube untuk membangun brand awareness.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">👥</div>
+        <div class="skill-name">Team Leadership</div>
+        <div class="skill-desc">Memimpin dan mengkoordinasikan tim marketing multidisiplin untuk mencapai target bulanan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<div id="exp-section" style="max-width:1100px;margin:0 auto;padding:100px 60px 0;">
+  <p class="section-label">Career Journey</p>
+  <h2 class="section-title">Pengalaman Kerja</h2>
+</div>
+<section id="experience" style="padding-top:32px;">
+  <div class="exp-grid">
+
+    <div class="exp-item" data-index="01">
+      <div class="exp-meta">
+        <div class="exp-period">Mar 2023 — Sekarang</div>
+        <div class="exp-duration">3 Tahun 2 Bulan</div>
+      </div>
+      <div>
+        <div class="exp-company">PT Ethos Kreatif Indonesia</div>
+        <div class="exp-role">Marketing Team Lead</div>
+        <ul class="exp-bullets">
+          <li>Memimpin Tim Google Ads (Search Engine Marketing)</li>
+          <li>Mengelola Advertiser, Customer Service Online, Admin, dan Spesialis SEO</li>
+          <li>Mengkoordinasikan Content Web Marketing dan mengevaluasi kinerja tim</li>
+          <li>Menginspirasi tim untuk mencapai target bulanan secara konsisten</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item" data-index="02">
+      <div class="exp-meta">
+        <div class="exp-period">Nov 2023 — Sekarang</div>
+        <div class="exp-duration">2 Tahun 6 Bulan</div>
+      </div>
+      <div>
+        <div class="exp-company">Smoke Muffler Indonesia</div>
+        <div class="exp-role">Social Media Marketing Specialist</div>
+        <ul class="exp-bullets">
+          <li>Digital Marketing menggunakan Facebook Ads</li>
+          <li>Facebook Ads Branding Strategic</li>
+          <li>Strategi konten Instagram, Facebook, dan YouTube</li>
+          <li>Optimasi strategi Marketplace</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item" data-index="03">
+      <div class="exp-meta">
+        <div class="exp-period">Ags 2021 — Mar 2023</div>
+        <div class="exp-duration">1 Tahun 8 Bulan</div>
+      </div>
+      <div>
+        <div class="exp-company">PT Ethos Kreatif Indonesia</div>
+        <div class="exp-role">Marketing Advertising Specialist — Google Ads</div>
+        <ul class="exp-bullets">
+          <li>Menjalankan kampanye Google Ads untuk produk herbal</li>
+          <li>Optimasi iklan GSN, GDN, Discovery, dan Performance Max</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item" data-index="04">
+      <div class="exp-meta">
+        <div class="exp-period">Jun 2020 — Ags 2021</div>
+        <div class="exp-duration">1 Tahun 3 Bulan</div>
+      </div>
+      <div>
+        <div class="exp-company">IndiHomeID</div>
+        <div class="exp-role">Sales and Marketing Specialist</div>
+        <ul class="exp-bullets">
+          <li>Mengelola penjualan dan pemasaran layanan IndiHome</li>
+          <li>Berbasis di Purwokerto, Jawa Tengah</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item" data-index="05">
+      <div class="exp-meta">
+        <div class="exp-period">Jan 2020 — Mar 2020</div>
+        <div class="exp-duration">3 Bulan</div>
+      </div>
+      <div>
+        <div class="exp-company">PT Bank Mandiri (Persero) Tbk.</div>
+        <div class="exp-role">Marketing Assistant</div>
+        <ul class="exp-bullets">
+          <li>Mendukung kegiatan pemasaran Bank Mandiri</li>
+          <li>Berbasis di Yogyakarta, DIY</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="edu-inner">
+    <p class="section-label">Academic Background</p>
+    <h2 class="section-title">Pendidikan</h2>
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-school">UIN Saifudin Zuhri Purwokerto</div>
+        <div class="edu-degree">Sarjana Ekonomi Bisnis (S.E.)</div>
+        <div class="edu-period">SEPTEMBER 2016 — NOVEMBER 2020</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Get In Touch</p>
+  <h2 class="section-title">Hubungi Saya</h2>
+  <div class="contact-grid">
+    <a class="contact-item" href="tel:082242251996">
+      <div class="contact-item-icon">📞</div>
+      <div class="contact-item-label">Telepon</div>
+      <div class="contact-item-value">082242251996</div>
+    </a>
+    <a class="contact-item" href="mailto:panggihwe27@gmail.com">
+      <div class="contact-item-icon">✉️</div>
+      <div class="contact-item-label">Email</div>
+      <div class="contact-item-value">panggihwe27@gmail.com</div>
+    </a>
+    <a class="contact-item" href="https://www.linkedin.com/in/panggihwibowo-s-e-73b077243" target="_blank">
+      <div class="contact-item-icon">💼</div>
+      <div class="contact-item-label">LinkedIn</div>
+      <div class="contact-item-value">panggihwibowo-s-e</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2025 <span>Panggih Wibowo, S.E.</span> · Marketing Specialist · Cilacap, Jawa Tengah
+</footer>
+
+<script>
+(function() {
+  const canvas = document.getElementById('tech-grid');
+  const ctx = canvas.getContext('2d');
+
+  const GOLD   = 'rgba(201,168,76,';
+  const TEAL   = 'rgba(45,212,191,';
+  const WHITE  = 'rgba(255,255,255,';
+  const CELL   = 48;
+
+  let W, H, cols, rows, nodes, packets, scanY;
+
+  /* ── resize ── */
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    cols = Math.ceil(W / CELL) + 1;
+    rows = Math.ceil(H / CELL) + 1;
+    buildNodes();
+  }
+
+  /* ── node map ── */
+  function buildNodes() {
+    nodes = [];
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if (Math.random() < 0.18) {          // sparse dots at intersections
+          nodes.push({
+            x: c * CELL, y: r * CELL,
+            pulse: Math.random() * Math.PI * 2,
+            speed: 0.02 + Math.random() * 0.03,
+            color: Math.random() < 0.3 ? TEAL : GOLD,
+            size: 1.5 + Math.random() * 2
+          });
+        }
+      }
+    }
+    // seed data packets
+    packets = Array.from({ length: 14 }, () => spawnPacket());
+    scanY = 0;
+  }
+
+  function spawnPacket() {
+    const horiz = Math.random() < 0.5;
+    return {
+      horiz,
+      x: horiz ? 0 : Math.round(Math.random() * cols) * CELL,
+      y: horiz ? Math.round(Math.random() * rows) * CELL : 0,
+      speed: (1.2 + Math.random() * 2) * (Math.random() < 0.5 ? 1 : -1),
+      color: Math.random() < 0.4 ? TEAL : GOLD,
+      len: 40 + Math.random() * 80,
+      life: 1
+    };
+  }
+
+  /* ── draw ── */
+  function draw(ts) {
+    ctx.clearRect(0, 0, W, H);
+
+    /* grid lines */
+    ctx.lineWidth = 0.4;
+    for (let c = 0; c <= cols; c++) {
+      const x = c * CELL;
+      ctx.strokeStyle = GOLD + '0.10)';
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    for (let r = 0; r <= rows; r++) {
+      const y = r * CELL;
+      ctx.strokeStyle = GOLD + '0.10)';
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    /* cross-hairs at some intersections */
+    ctx.strokeStyle = TEAL + '0.08)';
+    ctx.lineWidth = 0.6;
+    for (let r = 2; r < rows; r += 4) {
+      for (let c = 2; c < cols; c += 5) {
+        const x = c * CELL, y = r * CELL, sz = 6;
+        ctx.beginPath();
+        ctx.moveTo(x - sz, y); ctx.lineTo(x + sz, y);
+        ctx.moveTo(x, y - sz); ctx.lineTo(x, y + sz);
+        ctx.stroke();
+      }
+    }
+
+    /* scan line */
+    scanY = (scanY + 0.6) % H;
+    const sg = ctx.createLinearGradient(0, scanY - 60, 0, scanY + 4);
+    sg.addColorStop(0, TEAL + '0)');
+    sg.addColorStop(1, TEAL + '0.07)');
+    ctx.fillStyle = sg;
+    ctx.fillRect(0, scanY - 60, W, 64);
+
+    /* data packets */
+    packets.forEach((p, i) => {
+      if (p.horiz) {
+        p.x += p.speed;
+        if (p.x > W + p.len || p.x < -p.len) packets[i] = spawnPacket();
+        const gx = ctx.createLinearGradient(p.x - p.len * Math.sign(p.speed), p.y, p.x, p.y);
+        gx.addColorStop(0, p.color + '0)');
+        gx.addColorStop(1, p.color + '0.7)');
+        ctx.strokeStyle = gx;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(p.x - p.len * Math.sign(p.speed), p.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+        // head dot
+        ctx.fillStyle = p.color + '0.9)';
+        ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
+      } else {
+        p.y += p.speed;
+        if (p.y > H + p.len || p.y < -p.len) packets[i] = spawnPacket();
+        const gy = ctx.createLinearGradient(p.x, p.y - p.len * Math.sign(p.speed), p.x, p.y);
+        gy.addColorStop(0, p.color + '0)');
+        gy.addColorStop(1, p.color + '0.7)');
+        ctx.strokeStyle = gy;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(p.x, p.y - p.len * Math.sign(p.speed)); ctx.lineTo(p.x, p.y); ctx.stroke();
+        ctx.fillStyle = p.color + '0.9)';
+        ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
+      }
+    });
+
+    /* pulsing nodes */
+    nodes.forEach(n => {
+      n.pulse += n.speed;
+      const a = 0.3 + 0.5 * Math.abs(Math.sin(n.pulse));
+      const r = n.size + 2 * Math.abs(Math.sin(n.pulse));
+      // glow
+      const ng = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 4);
+      ng.addColorStop(0, n.color + (a * 0.5).toFixed(2) + ')');
+      ng.addColorStop(1, n.color + '0)');
+      ctx.fillStyle = ng;
+      ctx.beginPath(); ctx.arc(n.x, n.y, r * 4, 0, Math.PI * 2); ctx.fill();
+      // core
+      ctx.fillStyle = n.color + a.toFixed(2) + ')';
+      ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2); ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
